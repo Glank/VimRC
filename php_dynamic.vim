@@ -1,4 +1,9 @@
-keep 3 lines when scrolling"
+set nocompatible     " use vim defaults" My name is WUT!
+set ls=2             " allways show status line"
+set tabstop=4        " numbers of spaces of tab character"
+set shiftwidth=4
+set expandtab
+set scrolloff=3      " keep 3 lines when scrolling"
 set showcmd          " display incomplete commands"
 set hlsearch         " highlight searches"
 set incsearch        " do incremental searching"
