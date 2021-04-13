@@ -1,64 +1,31 @@
-set nocompatible     " use vim defaults" My name is WUT!
-set ls=2             " allways show status line"
-set tabstop=4        " numbers of spaces of tab character"
-set shiftwidth=4
+set tabstop=2        " numbers of spaces of tab character"
 set expandtab
 set scrolloff=3      " keep 3 lines when scrolling"
-set showcmd          " display incomplete commands"
-set hlsearch         " highlight searches"
-set incsearch        " do incremental searching"
-set ignorecase		 " ignore case when searching"
-set title			 " show title in console title bar"
-set ttyfast			 " smoother changes"
-
-set hls is
-set autoindent
-set showcmd
-set showmode
+set title			 			 " show title in console title bar"
+set ttyfast			     " smoother changes"
 set pastetoggle=<F2>
 set paste
+set shiftwidth=2
+
+" enable filetype detection:
+filetype on
+filetype plugin on
+" filetype indent off " file type based indentation - I've found this to be unnecessary
+
+autocmd FileType c,cpp,java set formatoptions+=ro expandtab
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+autocmd FileType py,python set ts=2 sts=2 sw=2 et
+autocmd FileType tex set ts=2 sts=2 sw=2 et
+
+" delete without yanking
+vnoremap p "0p
+vnoremap P "0P
+vnoremap y "0y
+vnoremap d "0d
 
 syntax on
-
-" Create Compile Functions"
-function! RunPython()
-    let s:save_lz = &lazyredraw   " save 'lazyredraw' setting
-    set lazyredraw
-    wall
-    !clear && echo "% is running..." && python %
-    let &lazyredraw = s:save_lz   " restore 'lazyredraw'
-endfunction
-function! TestBlog()
-    let s:save_lz = &lazyredraw   " save 'lazyredraw' setting
-    set lazyredraw
-    wall
-    !clear && python manage.py test blog
-    let &lazyredraw = s:save_lz   " restore 'lazyredraw'
-endfunction
-function! ResetDB()
-    let s:save_lz = &lazyredraw   " save 'lazyredraw' setting
-    set lazyredraw
-    wall
-    !rm central && echo $'yes\nglank\nglank314@gmail.com' | python manage.py syncdb
-    let &lazyredraw = s:save_lz   " restore 'lazyredraw'
-endfunction
-function! GitCommit()
-    let curline = getline('.')
-    call inputsave()
-    let comment = input('Comment: ')
-    call inputrestore()
-    execute "!git add --all && git commit -m \"".comment."\""
-endfunction
-function! StartDjango()
-    let s:save_lz = &lazyredraw   " save 'lazyredraw' setting
-    set lazyredraw
-    wall
-    !clear && python manage.py runserver
-    let &lazyredraw = s:save_lz   " restore 'lazyredraw'
-endfunction
-noremap <silent><F5> :call RunPython()<CR>
-noremap <silent><F6> :call TestBlog()<CR>
-noremap <silent><F7> :call GitCommit()<CR>
-noremap <silent><F8> :call ResetDB()<CR>
-noremap <silent><F9> :call StartDjango()<CR>
-nnoremap <silent><F4> :set expandtab!<CR>
