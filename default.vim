@@ -11,7 +11,6 @@ set shiftwidth=2
 filetype on
 filetype plugin on
 " filetype indent off " file type based indentation - I've found this to be unnecessary
-
 autocmd FileType c,cpp,java set formatoptions+=ro expandtab
 
 " in makefiles, don't expand tabs to spaces, since actual tab characters are
@@ -21,6 +20,11 @@ autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
 autocmd FileType py,python set ts=2 sts=2 sw=2 et
 autocmd FileType tex set ts=2 sts=2 sw=2 et
+
+" don't store rm, cp, and mv commands in the call history (prevents accidentally overwriting files)
+autocmd ShellCmdPost * :call histdel(':', '!rm')
+autocmd ShellCmdPost * :call histdel(':', '!cp')
+autocmd ShellCmdPost * :call histdel(':', '!mv')
 
 " delete without yanking
 vnoremap p "0p
