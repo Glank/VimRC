@@ -18,9 +18,11 @@ autocmd FileType c,cpp,java set formatoptions+=ro expandtab
 " (despite the mappings later):
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 
-autocmd FileType py,python set ts=2 sts=2 sw=2 et
-autocmd FileType js,mjs,json set ts=2 sts=2 sw=2 et
-autocmd FileType tex set ts=2 sts=2 sw=2 et
+autocmd FileType py,python set ts=2 sts=2 sw=2 expandtab
+autocmd FileType htm,html set ts=2 sts=2 sw=2 expandtab
+autocmd FileType javascript,js,mjs,json set ts=2 sts=2 sw=2 expandtab
+autocmd FileType tex set ts=2 sts=2 sw=2 expandtab
+autocmd FileType markdown set ts=2 sts=2 sw=2 expandtab
 
 " don't store rm, cp, and mv commands in the call history (prevents accidentally overwriting files)
 autocmd ShellCmdPost * :call histdel(':', '!rm')
